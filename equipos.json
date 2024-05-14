@@ -1,0 +1,15 @@
+{
+    "equipos":[
+        {"name":"OC FREE MARKET", "ip": "10.2.44.2"},
+        {"name":"OC BELLA FLORIDA RF", "ip":"10.10.48.156"},
+        {"name":"OC BELLA FLORIDA FTTH", "ip": "10.2.48.2"},
+        {"name":"OC LOS CAOBOS RF", "ip": "10.1.32.215"},
+        {"name":"OC LOS CAOBOS FTTH", "ip": "10.2.48.6"},
+        {"name":"OC GUACARA", "ip": "192.168.215.244"},
+        {"name":"OC CAGUA", "ip": "10.10.58.2"},
+        {"name":"OC PUERTO CABELLO", "ip": "45.182.141.73"},
+        {"name":"OC MORITA", "ip": "10.1.20.3"},
+        {"name":"GALPON NUEVO RF", "ip": "38.183.112.252"},  
+        {"name":"GALPON NUEVO FTTH", "ip": "172.16.0.94"}
+    ]    
+}
