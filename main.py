@@ -36,7 +36,7 @@ def do_ping(equipos):
     msg = ''
     for e in equipos:
         print(f"{e}")
-        result = check_equipo(e)
+        result = check_equipo_todos(e)
         if result:
             msg += result
     if not msg:
@@ -70,6 +70,29 @@ def check_equipo(e):
                 message = f"{name} DOWN 🟥\n"
                 e["state"] = False
                 print(f"{e} Caido")
+        return message
+    except KeyError as ke:
+        print(f"KeyError: {ke}")
+        return ''
+    except Exception as ex:
+        print(f"Error: {ex}")
+        return ''
+    
+
+def check_equipo_todos(e):
+    try:
+        message = ''
+        name = e["name"]
+        ip = e['ip']
+        if ping(ip):
+                message = f"{name} UP 🟩\n"
+                e["state"] = True
+                print(f"{e} Arriba")
+        else:
+                message = f"{name} DOWN 🟥\n"
+                e["state"] = False
+                print(f"{e} Caido")
+
         return message
     except KeyError as ke:
         print(f"KeyError: {ke}")
