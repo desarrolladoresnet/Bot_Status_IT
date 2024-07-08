@@ -27,7 +27,7 @@ def send_automatic_status():
     for e in check_equipos:
         m += do_ping2(e)
 
-    if len(m) > 1 :
+    if len(m) > 1:
         msg += m
         bot.send_message(chat_id=channel_id, text=msg)
 
@@ -54,6 +54,7 @@ def do_ping2(e):
     #     print("sin cambios")
     #     msg = "Sin cambios"
     return msg
+
 
 def check_equipo(e):
     try:
@@ -101,14 +102,21 @@ def check_equipo_todos(e):
         print(f"Error: {ex}")
         return ''
 
+
 def ping(host):
-    response = os.system("ping -c 1 " + host)
-    if response == 0:
-        print(host, 'is up!')
-        return True
+    tries = 0
+    while tries < 5:
+        print(f"\nIntento {tries} - Host {host}\n")
+        response = os.system("ping -c 1 " + host)
+        tries += 1
+        if response == 0:
+            print(host, 'is up!')
+            return True
+
     else:
         print(host, 'is down!')
         return False
+
 
 def buscar_equipos():
     try:
@@ -122,6 +130,7 @@ def buscar_equipos():
         print(f"Error al cargar equipos: {ex}")
         return []
 
+
 @bot.message_handler(commands=['help', 'start'])
 def send_welcome(message):
     print(f"message {message}")
@@ -129,6 +138,7 @@ def send_welcome(message):
 Hi there, I am EchoBot.
 I am here to echo your kind words back to you. Just say anything nice and I'll say the exact same thing to you!\
 """)
+
 
 @bot.message_handler(commands=['status'])
 def send_status1(message):
@@ -142,6 +152,7 @@ def send_status1(message):
     msg += do_ping(check_equipos)
     bot.reply_to(message, msg)
 
+
 @bot.channel_post_handler(['run'])
 def send_status(message):
     global check_equipos
@@ -153,6 +164,7 @@ def send_status(message):
     msg = do_ping(check_equipos)
     bot.reply_to(message, msg)
 
+
 @bot.message_handler(func=lambda message: True)
 def echo_message(message):
     if message.chat.type == 'channel':
@@ -163,11 +175,14 @@ def echo_message(message):
         print(message.chat.id)
         bot.reply_to(message, message.text)
 
+
 def job():
     threading.Thread(target=send_automatic_status).start()
 
+
 def bot_polling():
     bot.infinity_polling()
+
 
 def main():
     schedule.every(30).seconds.do(job)
@@ -176,6 +191,7 @@ def main():
     while True:
         schedule.run_pending()
         time.sleep(1)
+
 
 if __name__ == "__main__":
     main()
